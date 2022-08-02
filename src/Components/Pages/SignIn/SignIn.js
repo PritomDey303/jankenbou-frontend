@@ -73,7 +73,7 @@ const SignIn = () => {
         <Row className="mt-4">
           <Col xs={{ span: 12, order: 2 }} md={{ span: 6, order: 1 }}>
             <p className="lead mt-3 signin-text  text-dark">
-              <Link className="text-dark" to="/signin">
+              <Link className="text-dark" to="/signup">
                 Don't have an account? Sign Up..
               </Link>
             </p>
