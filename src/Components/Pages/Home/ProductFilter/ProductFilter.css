@@ -1,0 +1,8 @@
+.product-filter {
+  background-image: linear-gradient(
+    180deg,
+    rgb(12, 191, 236) 60%,
+    rgb(255, 255, 255) 40%
+  );
+  border: none;
+}

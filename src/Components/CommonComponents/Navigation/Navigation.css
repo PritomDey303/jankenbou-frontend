@@ -1,0 +1,40 @@
+.nav-dropdown a {
+  color: rgb(255, 255, 255);
+  font-size: 1em;
+  font-weight: bold;
+}
+.nav-dropdown a:hover {
+  color: white;
+}
+.nav-dropdown a:focus {
+  color: white;
+}
+.nav-dropdown a:checked {
+  color: white;
+}
+.logo {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-left: 20px;
+}
+.navbar-toggler-icon {
+  background-image: white;
+}
+.navbar {
+  border-bottom: 2px solid rgb(0, 60, 128);
+}
+.offcanvas-title button {
+  border: 1px solid white;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-dropdown a {
+    margin-left: 5px;
+  }
+  .offcanvas-head {
+    background-color: #212529;
+  }
+  .offcanvas-custom-body {
+    background-color: #212529;
+  }
+}

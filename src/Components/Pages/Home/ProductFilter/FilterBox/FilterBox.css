@@ -1,0 +1,21 @@
+.filterbox-container {
+  margin-top: 50px;
+
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  background-color: white;
+}
+.input {
+  background-color: #e0dada;
+  border-radius: 10px;
+  color: gray;
+}
+.input:focus {
+  background-color: #e0dada;
+}
+@media screen and (max-width: 768px) {
+  .filterbox-container {
+    width: 100%;
+  }
+}

@@ -1,0 +1,41 @@
+.banner {
+  margin-top: 130px;
+  padding-left: 20px;
+}
+
+.banner-header {
+  font-size: 3.7em;
+  font-weight: bold;
+}
+
+/* media query */
+@media (max-width: 1048px) {
+  .banner {
+    margin-top: 80px;
+  }
+  .banner-header {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    margin-top: 50px;
+    padding-right: 250px;
+  }
+  .banner-header {
+    font-size: 2em;
+  }
+  .banner-image {
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .banner {
+    margin-top: 30px;
+    padding: 0;
+  }
+  .banner-header {
+    font-size: 1.5em;
+  }
+}
