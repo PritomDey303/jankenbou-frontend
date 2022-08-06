@@ -1,0 +1,13 @@
+.toast {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+
+  min-width: 350px;
+}
+
+@media screen and (max-width: 768px) {
+  .toast {
+    min-width: none;
+  }
+}

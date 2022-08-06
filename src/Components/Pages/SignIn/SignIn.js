@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastProvider } from "../../../App";
+import { useUserAuth } from "../../../context/UserAuthContext";
 import SigninImage from "../../../utilities/images/signin-image.jpg";
 import "./SignIn.css";
 const SignIn = () => {
+  const navigate = useNavigate();
+  const { user, signIn } = useUserAuth();
+  React.useEffect(() => {
+    if (!!user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
+  const { handleToastify } = useContext(ToastProvider);
   //input field arr
   const SigninField = [
     {
@@ -25,7 +36,17 @@ const SignIn = () => {
     },
   ];
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const user = await signIn(data.email, data.password);
+      if (user) {
+        handleToastify("Successfully Signed In.", "success");
+        navigate("/", { replace: true });
+      }
+    } catch (err) {
+      handleToastify(err.message, "danger");
+    }
+  };
 
   return (
     <div className="w-100 section h-100 py-5">
@@ -49,6 +70,7 @@ const SignIn = () => {
                   </InputGroup.Text>
                   <Form.Control
                     className="input"
+                    type={i.fieldType}
                     placeholder={i.placeHolder}
                     aria-label={i.fieldName}
                     aria-describedby="basic-addon1"

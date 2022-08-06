@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastProvider } from "../../../App";
+import { useUserAuth } from "../../../context/UserAuthContext";
 import signUpImage from "../../../utilities/images/signup-image.jpg";
 import "./SignUp.css";
 const SignUp = () => {
+  const { user, signUp } = useUserAuth();
+  const { handleToastify } = useContext(ToastProvider);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!!user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
   //input field arr
   const signUpField = [
     {
@@ -39,7 +50,23 @@ const SignUp = () => {
     },
   ];
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      if (data.password !== data.confirm_password) {
+        handleToastify("Password does not match", "danger");
+        return;
+      }
+      const user = await signUp(data.email, data.password);
+      if (user) {
+        handleToastify("Signup Successful!", "success");
+      } else {
+        handleToastify("Sorry! Something went wrong.", "danger");
+      }
+    } catch (err) {
+      console.log(err.message);
+      handleToastify("Sorry! Something went wrong.", "danger");
+    }
+  };
 
   return (
     <div className="w-100 section h-100 py-5">
@@ -63,6 +90,7 @@ const SignUp = () => {
                   </InputGroup.Text>
                   <Form.Control
                     className="input"
+                    type={i.fieldType}
                     placeholder={i.placeHolder}
                     aria-label={i.fieldName}
                     aria-describedby="basic-addon1"

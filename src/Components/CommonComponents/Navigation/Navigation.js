@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, NavLink } from "react-router-dom";
+import { useUserAuth } from "../../../context/UserAuthContext";
 import "./Navigation.css";
 //navlink style
 const activeStyle = {
@@ -55,6 +56,8 @@ const inactiveStyle = {
   msTransition: "all 0.3s ease-in-out",
 };
 const Navigation = () => {
+  let { user, signOut } = useUserAuth();
+
   //navigation expand control
   const expand = "md";
   return (
@@ -102,25 +105,37 @@ const Navigation = () => {
                   Home
                 </NavLink>
                 <NavDropdown
-                  title="LOGIN"
+                  title={!user ? "Sign In" : "Sign Out"}
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
                   className="nav-dropdown text-light mx-3"
                   style={{ color: "white" }}
                 >
-                  <Link to="/signin" className="text-decoration-none text-dark">
-                    <span className="text-center d-block">Sign In</span>
-                  </Link>
-                  <NavDropdown.Divider />{" "}
-                  <Link to="/signup" className="text-decoration-none text-dark">
-                    <span className="text-center d-block">Sign Up</span>
-                  </Link>
-                  <NavDropdown.Divider />
-                  <Link
-                    to="/signout"
-                    className="text-decoration-none text-danger"
-                  >
-                    <span className="text-center d-block">Sign Out</span>
-                  </Link>
+                  {!user ? (
+                    <>
+                      <Link
+                        to="/signin"
+                        className="text-decoration-none text-dark"
+                      >
+                        <span className="text-center d-block">Sign In</span>
+                      </Link>
+                      <NavDropdown.Divider />{" "}
+                      <Link
+                        to="/signup"
+                        className="text-decoration-none text-dark"
+                      >
+                        <span className="text-center d-block">Sign Up</span>
+                      </Link>
+                    </>
+                  ) : (
+                    <div
+                      onClick={() => signOut()}
+                      className="text-decoration-none text-danger cursor-pointer"
+                    >
+                      <span className="text-center d-block fw-bold">
+                        Sign Out
+                      </span>
+                    </div>
+                  )}
                 </NavDropdown>
                 <Button variant="warning" style={{ width: "150px" }}>
                   <NavLink
