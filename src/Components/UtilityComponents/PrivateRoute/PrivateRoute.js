@@ -8,7 +8,7 @@ export default function PrivateRoute({ children }) {
   }
 
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/signin" />;
   }
   return children;
 }
