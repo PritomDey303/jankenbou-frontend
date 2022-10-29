@@ -17,7 +17,7 @@ export default function Toastify(props) {
     <ToastContainer className="mt-3 me-2" position="top-end">
       <Toast show={show} bg={bg} className="">
         <Toast.Body className=" pb-0 d-flex justify-content-between align-items-center">
-          <p className="lead text-light">
+          <p className="fw-bold text-light">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

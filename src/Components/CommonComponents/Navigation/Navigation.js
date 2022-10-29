@@ -57,6 +57,10 @@ const inactiveStyle = {
 };
 const Navigation = () => {
   let { user, signOut } = useUserAuth();
+  const handleSignOut = () => {
+    signOut();
+    localStorage.removeItem("jankenbou_token");
+  };
 
   //navigation expand control
   const expand = "md";
@@ -128,8 +132,9 @@ const Navigation = () => {
                     </>
                   ) : (
                     <div
-                      onClick={() => signOut()}
+                      onClick={handleSignOut}
                       className="text-decoration-none text-danger cursor-pointer"
+                      style={{ cursor: "pointer" }}
                     >
                       <span className="text-center d-block fw-bold">
                         Sign Out
@@ -137,15 +142,29 @@ const Navigation = () => {
                     </div>
                   )}
                 </NavDropdown>
-                <Button variant="warning" style={{ width: "150px" }}>
-                  <NavLink
-                    className="mx-3 text-dark fw-bold text-decoration-none"
-                    to="/post-add"
-                    style={{ fontSize: "16px" }}
+                <NavLink
+                  to="/lottery"
+                  style={({ isActive }) =>
+                    isActive ? activeStyle : inactiveStyle
+                  }
+                  className="mx-3"
+                >
+                  Lottery
+                </NavLink>
+                <NavLink
+                  className="mx-3 text-dark fw-bold text-decoration-none py-1"
+                  to="/post-add"
+                  style={{ fontSize: "16px", width: "150px" }}
+                >
+                  {" "}
+                  <Button
+                    variant="warning"
+                    className="fw-bold py-2"
+                    style={{ width: "150px" }}
                   >
-                    Post Add
-                  </NavLink>{" "}
-                </Button>
+                    Post Add{" "}
+                  </Button>
+                </NavLink>{" "}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -10,7 +10,7 @@ import SigninImage from "../../../utilities/images/signin-image.jpg";
 import "./SignIn.css";
 const SignIn = () => {
   const navigate = useNavigate();
-  const { user, signIn } = useUserAuth();
+  const { user, signIn, setLoading } = useUserAuth();
   React.useEffect(() => {
     if (!!user) {
       navigate("/", { replace: true });
@@ -37,15 +37,19 @@ const SignIn = () => {
   ];
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const user = await signIn(data.email, data.password);
       if (user) {
         handleToastify("Successfully Signed In.", "success");
+        console.log(user.user.accessToken);
+        localStorage.setItem("jankenbou_token", user.user.accessToken);
         navigate("/", { replace: true });
       }
     } catch (err) {
       handleToastify(err.message, "danger");
     }
+    setLoading(false);
   };
 
   return (

@@ -1,27 +1,59 @@
+import axios from "axios";
 import React from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "./PostAdd.css";
 export default function PostAdd() {
   const { register, handleSubmit, resetField } = useForm();
-  const resetForm = () => {
-    resetField("name");
-    resetField("prices");
-    resetField("description");
-    resetField("images");
-    resetField("price_type");
-    resetField("category");
-    resetField("condition");
-    resetField("brand");
-    resetField("model");
-    resetField("seller_name");
-    resetField("seller_mobile");
-    resetField("seller_messenger");
-    resetField("location");
-  };
+  // const resetForm = () => {
+  //   resetField("name");
+  //   resetField("price");
+  //   resetField("description");
+  //   resetField("images");
+  //   resetField("price_type");
+  //   resetField("category");
+  //   resetField("condition");
+  //   resetField("brand");
+  //   resetField("model");
+  //   resetField("seller_name");
+  //   resetField("seller_mobile");
+  //   resetField("seller_messenger");
+  //   resetField("location");
+  // };
   const onSubmit = (data) => {
     console.log(data);
-    resetForm();
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("images", data.images);
+    formData.append("price_type", data.price_type);
+    formData.append("category", data.category);
+    formData.append("condition", data.condition);
+    formData.append("brand", data.brand);
+    formData.append("model", data.model);
+    formData.append("seller_name", data.seller_name);
+    formData.append("seller_mobile", data.seller_mobile);
+    formData.append("seller_messenger", data.seller_messenger);
+    formData.append("location", data.location);
+
+    //axios post request with headers
+    axios
+      .post("http://localhost:5000/product/create-post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `bearer ${localStorage.getItem("junkenbou_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err + "error");
+      });
+
+    //resetForm();
   };
   return (
     <div className="section py-5">
@@ -58,7 +90,7 @@ export default function PostAdd() {
               <Col md={6}>
                 <Form.Select
                   size="lg"
-                  {...register("price-type", { required: true })}
+                  {...register("price_type", { required: true })}
                   defaultValue=""
                 >
                   <option value="">Price Type</option>
@@ -158,7 +190,7 @@ export default function PostAdd() {
                   variant="primary"
                   size="lg"
                   type="submit"
-                  className="w-100"
+                  className="w-100 bg_blue"
                 >
                   Post Advertise
                 </Button>
