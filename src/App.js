@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { createContext } from "react";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { Zoom } from "react-preloaders2";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
@@ -32,9 +31,9 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ zIndex: 999999999999 }}>
+      {/* <div style={{ zIndex: 999999999999 }}>
         <Zoom background="#02C2E4" color="white" />
-      </div>
+      </div> */}
       <BrowserRouter>
         <UserAuthContextProvider>
           <Navigation />
