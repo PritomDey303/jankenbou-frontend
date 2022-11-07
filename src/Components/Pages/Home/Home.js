@@ -4,11 +4,12 @@ import ProductCard from "./ProductCard/ProductCard";
 import ProductFilter from "./ProductFilter/ProductFilter";
 
 export default function Home() {
+  const [posts, setPosts] = React.useState([]);
   return (
     <div className="section pt-3 pb-5">
       <HomeBanner />
-      <ProductFilter />
-      <ProductCard />
+      <ProductFilter setPosts={setPosts} />
+      <ProductCard posts={posts} />
     </div>
   );
 }

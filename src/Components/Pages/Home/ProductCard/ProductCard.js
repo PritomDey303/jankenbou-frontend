@@ -1,20 +1,29 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import SingleCard from "./SingCard/SingleCard";
 
-export default function ProductCard() {
-  const [products, setProducts] = React.useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
+export default function ProductCard({ posts }) {
+  console.log(posts);
   return (
     <>
       <div className="product-card ">
         <Container>
           <Row className="g-5">
-            {products.map((product, index) => (
-              <SingleCard key={index} />
-            ))}
+            {posts &&
+              posts.map((post, index) => (
+                <SingleCard key={index} post={post} />
+              ))}
           </Row>
           <Row>
+            <Col>
+              {posts.length === 0 && (
+                <div className="text-center">
+                  <h3 className="text-secondary">No Product Found</h3>
+                </div>
+              )}
+            </Col>
+          </Row>
+          {/* <Row>
             <Col>
               <Button
                 variant="primary"
@@ -24,7 +33,7 @@ export default function ProductCard() {
                 Load More
               </Button>
             </Col>
-          </Row>
+          </Row> */}
         </Container>
       </div>
     </>

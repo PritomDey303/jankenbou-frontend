@@ -108,6 +108,15 @@ const Navigation = () => {
                 >
                   Home
                 </NavLink>
+                <NavLink
+                  to="/lottery"
+                  style={({ isActive }) =>
+                    isActive ? activeStyle : inactiveStyle
+                  }
+                  className="mx-3"
+                >
+                  Lottery
+                </NavLink>
                 <NavDropdown
                   title={!user ? "Sign In" : "Sign Out"}
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -142,15 +151,6 @@ const Navigation = () => {
                     </div>
                   )}
                 </NavDropdown>
-                <NavLink
-                  to="/lottery"
-                  style={({ isActive }) =>
-                    isActive ? activeStyle : inactiveStyle
-                  }
-                  className="mx-3"
-                >
-                  Lottery
-                </NavLink>
                 <NavLink
                   className="mx-3 text-dark fw-bold text-decoration-none py-1"
                   to="/post-add"

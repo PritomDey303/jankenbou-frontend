@@ -1,27 +1,33 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { ToastProvider } from "../../../App";
+import { useUserAuth } from "../../../context/UserAuthContext";
+import productType from "../../../utilities/productType";
 import "./PostAdd.css";
 export default function PostAdd() {
   const { register, handleSubmit, resetField } = useForm();
-  // const resetForm = () => {
-  //   resetField("name");
-  //   resetField("price");
-  //   resetField("description");
-  //   resetField("images");
-  //   resetField("price_type");
-  //   resetField("category");
-  //   resetField("condition");
-  //   resetField("brand");
-  //   resetField("model");
-  //   resetField("seller_name");
-  //   resetField("seller_mobile");
-  //   resetField("seller_messenger");
-  //   resetField("location");
-  // };
+  const { setLoading } = useUserAuth();
+  const { handleToastify } = useContext(ToastProvider);
+
+  const resetForm = () => {
+    resetField("name");
+    resetField("price");
+    resetField("description");
+    resetField("images");
+    resetField("price_type");
+    resetField("category");
+    resetField("condition");
+    resetField("brand");
+    resetField("model");
+    resetField("seller_name");
+    resetField("seller_mobile");
+    resetField("seller_messenger");
+    resetField("location");
+  };
   const onSubmit = (data) => {
-    console.log(data.images);
+    setLoading(true);
 
     const formData = new FormData();
     const imgData = Object.values(data.images);
@@ -51,11 +57,13 @@ export default function PostAdd() {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        resetForm();
+        setLoading(false);
+        handleToastify("Post added successfully", "success");
       })
       .catch((err) => {
-        console.log(err + "error");
+        setLoading(false);
+        handleToastify("Something went wrong", "danger");
       });
 
     //resetForm();
@@ -117,8 +125,11 @@ export default function PostAdd() {
                   defaultValue=""
                 >
                   <option value="">Select Category</option>
-                  <option value="Furniture">Furniture</option>
-                  <option value="Mobile">Mobile</option>
+                  {productType.map((type) => (
+                    <option key={type.id} value={type.name}>
+                      {type.name}
+                    </option>
+                  ))}
                 </Form.Select>
               </Col>
               <Col md={6}>

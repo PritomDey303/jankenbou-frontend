@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import "./ContactDetails.css";
-export default function ContactDetails() {
+export default function ContactDetails({ data }) {
   const safettips = [
     "Avoid offers that look unrealistic",
     "Chat with seller to clarify item details",
@@ -15,7 +15,7 @@ export default function ContactDetails() {
         <Col>
           <div className="seller-info  border rounded">
             <p className="lead  ps-3 py-3">
-              For sale by <span className="fw-bolder">Junayed Rafa Kabir</span>
+              For sale by <span className="fw-bolder">{data.seller_name}</span>
             </p>
             <hr />
             <p className="lead ps-3 py-2">
@@ -33,12 +33,14 @@ export default function ContactDetails() {
                   />
                 </svg>
               </span>{" "}
-              <span className="text-secondary fw-normal">01711-1234567</span>
+              <span className="text-secondary fw-normal">
+                {data.seller_mobile}
+              </span>
             </p>
             <hr />
             <p className="lead ps-3 py-2 ">
               <a
-                href="https://m.me/pritom.dey.520"
+                href={data.seller_messenger}
                 target="_blank"
                 className="text-decoration-none text-dark"
                 rel="noreferrer"
