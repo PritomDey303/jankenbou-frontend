@@ -21,12 +21,17 @@ export default function PostAdd() {
   //   resetField("location");
   // };
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.images);
+
     const formData = new FormData();
+    const imgData = Object.values(data.images);
+    imgData.forEach((img) => {
+      formData.append("images", img);
+    });
     formData.append("name", data.name);
     formData.append("price", data.price);
     formData.append("description", data.description);
-    formData.append("images", data.images);
+    // formData.append("images", data.images);
     formData.append("price_type", data.price_type);
     formData.append("category", data.category);
     formData.append("condition", data.condition);
@@ -39,10 +44,10 @@ export default function PostAdd() {
 
     //axios post request with headers
     axios
-      .post("http://localhost:5000/product/create-post", formData, {
+      .post("https://jankenbou.herokuapp.com/product/create-post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          authorization: `bearer ${localStorage.getItem("junkenbou_token")}`,
+          authorization: `bearer ${localStorage.getItem("jankenbou_token")}`,
         },
       })
       .then((res) => {

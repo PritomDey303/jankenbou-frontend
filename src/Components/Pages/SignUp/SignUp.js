@@ -58,6 +58,8 @@ const SignUp = () => {
       }
       const user = await signUp(data.email, data.password);
       if (user) {
+        //setting uid in local storage
+        localStorage.setItem("jankenbou_token", user.user.accessToken);
         handleToastify("Signup Successful!", "success");
       } else {
         handleToastify("Sorry! Something went wrong.", "danger");
